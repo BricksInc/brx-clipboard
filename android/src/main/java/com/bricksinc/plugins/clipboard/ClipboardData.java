@@ -5,6 +5,7 @@ public class ClipboardData {
     private String value;
 
     private String text;
+
     private String type;
 
     public ClipboardData() {

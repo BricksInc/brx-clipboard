@@ -106,9 +106,7 @@ public class Clipboard {
             if (value != null) {
                 clipboardData.setValue(value.toString());
             }
-            if (text != null) {
-                clipboardData.setText(text);
-            }
+            clipboardData.setText(text);
 
             if (value != null && value.toString().startsWith("data:")) {
                 type = value.toString().split(";")[0].split(":")[1];
