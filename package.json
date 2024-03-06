@@ -15,6 +15,14 @@
   ],
   "author": "MomoDeve",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "node": "./dist/esm/index.js",
+      "require": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BricksInc/brx-clipboard.git"
