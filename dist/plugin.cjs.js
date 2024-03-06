@@ -80,7 +80,12 @@ class ClipboardWeb extends core.WebPlugin {
         }
         else {
             try {
-                const clipboardItemInput = new ClipboardItem({ ['text/html']: html, ['text/plain']: text });
+                const htmlType = 'text/html';
+                const textType = 'text/plain';
+                const clipboardItemInput = new ClipboardItem({
+                    [htmlType]: new Blob([html], { type: htmlType }),
+                    [textType]: new Blob([text], { type: textType }),
+                });
                 await navigator.clipboard.write([clipboardItemInput]);
             }
             catch (err) {
