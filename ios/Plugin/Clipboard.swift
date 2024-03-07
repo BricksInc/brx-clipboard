@@ -46,21 +46,33 @@ public class Clipboard {
     }
 
     func writeHTML(content: String, text: String) -> Result<Void, Error> {
-        let pasteboard = UIPasteboard.general
-        pasteboard.setValue(content, forPasteboardType: "public.html")
-        pasteboard.setValue(text, forPasteboardType: "public.text")
+        let items: [[String: Any]] = [
+              ["public.html": content],
+              ["public.text": text]
+          ]
+        UIPasteboard.general.setItems(items)
         return .success(())
     }
 
     func read() -> [String: Any] {
-        if let htmlValue = UIPasteboard.general.value(forPasteboardType: "public.html") as? String {
-            let textValue = UIPasteboard.general.value(forPasteboardType: "public.text") as? String
-            return [
-                "value": htmlValue,
-                "text": textValue ?? "",
-                "type": "text/html"
-            ]
+       var htmlValue = ""
+       var textValue = ""
+       for (_, item) in UIPasteboard.general.items.enumerated() {
+         if let html = item["public.html"] as? String {
+            htmlValue = html
+          }
+        if let text = item["public.text"] as? String {
+            textValue = text
+            }
         }
+       if !htmlValue.isEmpty {
+                return [
+                    "value": htmlValue,
+                    "text": textValue,
+                    "type": "text/html"
+                ]
+        }
+
 
         if let stringValue = UIPasteboard.general.string {
             return [
